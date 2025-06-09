@@ -1,4 +1,4 @@
-const useCaseData = {
+export const useCaseData = {
     'introduction': { name: 'Introduction', description: 'Welcome to the AI in Retail Explorer. Please select a category from the navigation above to explore the use cases.' },
     'hyper-personalization': {
         name: 'Hyper-Personalization',
@@ -1491,5 +1491,5 @@ const useCaseData = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { export const presentationContext, export const useCaseData };
+  module.exports = { export presentationContext, useCaseData };
 }
