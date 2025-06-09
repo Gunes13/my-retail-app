@@ -1491,5 +1491,5 @@ const useCaseData = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { presentationContext, useCaseData };
+  module.exports = { export const presentationContext, export const useCaseData };
 }
