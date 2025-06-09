@@ -1489,3 +1489,7 @@ const useCaseData = {
     },
     'ask-ai': { name: 'Ask AI', description: 'Ask our AI expert about concepts in retail technology.' }
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { presentationContext, useCaseData };
+}

@@ -1,24 +1,240 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+// Step 1: Import the data from your data.js file
+import { useCaseData, presentationContext } from '../data.js';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+// Step 2: Paste the code you cut from your index.html file
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof useCaseData === 'undefined' || typeof presentationContext === 'undefined') {
+        console.error("Error: data.js not found or required data objects are not defined.");
+        document.body.innerHTML = `Error: data.js not found. Make sure the file is present and contains 'useCaseData' and 'presentationContext' variables.`;
+        return;
+    }
 
-setupCounter(document.querySelector('#counter'))
+    const navContainer = document.getElementById('nav-container');
+    const mainContent = document.querySelector('main');
+    const modalEl = document.getElementById('modal');
+
+    const icons = {
+        data: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 1.1.9 2 2 2h12a2 2 0 002-2V7M16 3L16 7M8 3L8 7M4 11L20 11" /></svg>`,
+        ai: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V5m0 14v-1M9.5 9.5l-1-1M15.5 15.5l-1-1M15.5 9.5l-1 1M9.5 15.5l-1 1" /></svg>`,
+        human: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>`,
+        feedback: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20L20 4" /></svg>`
+    };
+
+    function switchView(targetId) {
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        const navLink = document.querySelector(`.nav-link[data-target="${targetId}"]`);
+        if (navLink) navLink.classList.add('active');
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.toggle('active', section.id === targetId);
+        });
+        if (targetId !== 'introduction') window.scrollTo(0, 0);
+    }
+    
+    function openModal(sectionKey, caseKey) {
+        const data = useCaseData[sectionKey]?.cases.find(c => c.id === caseKey);
+        if (!data) return;
+        data.isCustom ? renderCustomModal(data) : renderStandardModal(data);
+    }
+    
+    function renderStandardModal(data) {
+        const modalHTML = `
+            <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-3xl transform transition-all">
+                <div class="p-5 border-b border-zinc-200 flex justify-between items-start">
+                    <div><h3 class="text-2xl font-bold text-zinc-900">${data.company}: ${data.concept}</h3><p class="text-sm text-fuchsia-600 font-semibold mt-1">${data.imperativeLink || ''}</p></div>
+                    <button id="close-modal" class="text-zinc-400 hover:text-zinc-800 text-3xl font-light leading-none">×</button>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6"><img src="${data.image || ''}" alt="Use Case Image" class="w-full h-56 object-cover rounded-lg bg-zinc-200 ${data.image ? '' : 'hidden'}"></div>
+                    <div class="text-zinc-700 space-y-4 prose max-w-none"><p>${data.details ? data.details.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') : ''}</p></div>
+                    <div class="mt-6 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
+                        <h4 class="font-semibold text-zinc-800 mb-2">Key Impact</h4>
+                        <ul class="space-y-2 text-zinc-600">${(data.impact || []).map(i => `<li class="flex items-center">${i.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>`).join('')}</ul>
+                    </div>
+                </div>
+            </div>`;
+        modalEl.innerHTML = modalHTML;
+        showAndBindModal();
+    }
+
+    function renderCustomModal(data) {
+         const modalHTML = `
+            <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-4xl transform transition-all">
+                <div class="p-5 border-b border-zinc-200 flex justify-between items-start">
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-zinc-900">${data.company}: ${data.concept}</h3>
+                                <p class="text-sm text-fuchsia-600 font-semibold mt-1">${data.imperativeLink || ''}</p>
+                            </div>
+                            ${data.youtubeUrl ? `<a href="${data.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="ml-4 flex-shrink-0 inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-red-700 transition-colors whitespace-nowrap">► Watch Video</a>` : ''}
+                        </div>
+                    </div>
+                    <button id="close-modal" class="text-zinc-400 hover:text-zinc-800 text-3xl font-light leading-none ml-4">×</button>
+                </div>
+                <div class="p-6 md:p-8">
+                    <img src="${data.image || ''}" alt="${data.company} Use Case" class="w-full h-auto rounded-lg mb-6 bg-zinc-200 ${data.image ? '' : 'hidden'}">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-lg text-zinc-800 mb-2">The AI-Native Business Model</h4>
+                            <p class="text-zinc-600">${data.businessModel}</p>
+                            <h4 class="font-bold text-lg text-zinc-800 mt-6 mb-3">How It Works: The Human + AI Process</h4>
+                            <div class="space-y-4">${(data.processSteps || []).map(step => `<div class="flex items-start"><div class="flex-shrink-0">${icons[step.icon]}</div><div class="ml-4"><h5 class="font-semibold text-zinc-700">${step.title}</h5><p class="text-sm text-zinc-500">${step.description}</p></div></div>`).join('')}</div>
+                        </div>
+                        <div class="bg-zinc-50 p-6 rounded-lg border border-zinc-200">
+                            <h4 class="font-bold text-lg text-zinc-800 mb-4">Quantified Impact</h4>
+                            <div class="space-y-4">${(data.quantifiedImpact || []).map(item => `
+                                <div>
+                                    <p class="text-3xl font-bold text-fuchsia-600">${item.metric}</p>
+                                    <p class="text-sm text-zinc-600">
+                                        ${item.description}
+                                        ${item.videoUrl ? `<a href="${item.videoUrl}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 bg-fuchsia-600 text-white font-bold py-1 px-3 rounded-md hover:bg-fuchsia-700 transition-colors shadow hover:shadow-lg">[Watch Video]</a>` : ''}
+                                    </p>
+                                </div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                     <div class="mt-8 pt-6 border-t border-zinc-200">
+                         <h4 class="font-bold text-lg text-zinc-800 mb-2">Strategic Takeaway for Penti</h4>
+                         <p class="text-zinc-600 italic">"${data.strategicTakeaway}"</p>
+                     </div>
+                     ${data.relatedConcepts && data.relatedConcepts.length > 0 ? `
+                     <div class="mt-6 pt-4 border-t border-zinc-200">
+                         <h4 class="font-bold text-lg text-zinc-800 mb-2">Related Concepts</h4>
+                         <div class="flex flex-wrap gap-2">
+                             ${data.relatedConcepts.map(concept => `
+                                 <a href="#${concept.id}" class="concept-link text-sm bg-indigo-100 text-indigo-700 font-medium py-1 px-3 rounded-full hover:bg-indigo-200 transition-colors">${concept.name}</a>
+                             `).join('')}
+                         </div>
+                     </div>
+                     ` : ''}
+                </div>
+            </div>`;
+        modalEl.innerHTML = modalHTML;
+        showAndBindModal();
+    }
+
+    function showAndBindModal() {
+        modalEl.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        modalEl.querySelector('#close-modal').addEventListener('click', closeModal);
+        modalEl.addEventListener('click', (e) => { if (e.target === modalEl) closeModal(); });
+    }
+
+    function closeModal() {
+        modalEl.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        if(history.pushState) {
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+        } else {
+            window.location.hash = '';
+        }
+    }
+
+    function findCaseById(caseId) {
+        for (const sectionKey in useCaseData) {
+            if (useCaseData[sectionKey]?.cases) {
+                const foundCase = useCaseData[sectionKey].cases.find(c => c.id === caseId);
+                if (foundCase) return { sectionKey: sectionKey, caseKey: caseId };
+            }
+        }
+        return null;
+    }
+    
+    function handleUrlChange() {
+        const caseId = window.location.hash.substring(1);
+        if (caseId) {
+            const found = findCaseById(caseId);
+            if (found) {
+                if (modalEl.classList.contains('hidden')) {
+                     switchView(found.sectionKey);
+                     setTimeout(() => openModal(found.sectionKey, found.caseKey), 50);
+                } else {
+                     closeModal();
+                     setTimeout(() => {
+                         switchView(found.sectionKey);
+                         openModal(found.sectionKey, found.caseKey);
+                     }, 300);
+                }
+                return;
+            }
+        }
+        if (!modalEl.classList.contains('hidden')) closeModal();
+    }
+    
+    // --- START: ASK AI LOGIC ---
+    const askButton = document.getElementById('ask-button');
+    const questionInput = document.getElementById('ai-question');
+    const responseEl = document.getElementById('ai-response');
+
+    async function handleAskAI() {
+        const question = questionInput.value.trim();
+        if (!question) {
+            alert("Please enter a question.");
+            return;
+        }
+
+        askButton.disabled = true;
+        responseEl.textContent = "Thinking...";
+
+        // The new API endpoint is our own serverless function
+        const SECURE_API_ENDPOINT = '/api/ask-ai';
+
+        try {
+            const response = await fetch(SECURE_API_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: question }) // Only send the question
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server Error: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            responseEl.textContent = data.answer;
+
+        } catch (error) {
+            console.error("Error fetching AI response:", error);
+            responseEl.textContent = "Sorry, there was an error getting a response. Please check the console for details.";
+        } finally {
+            askButton.disabled = false;
+        }
+    }
+
+    askButton.addEventListener('click', handleAskAI);
+    questionInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            handleAskAI();
+        }
+    });
+    // --- END: ASK AI LOGIC ---
+
+    function initializeDashboard() {
+        const navOrder = Object.keys(useCaseData);
+        navOrder.forEach((key) => {
+            const section = useCaseData[key];
+            if (!section) return;
+            const navLink = document.createElement('a');
+            navLink.className = `nav-link py-2 px-4 rounded-t-lg font-medium text-sm md:text-base whitespace-nowrap`;
+            navLink.textContent = section.name;
+            navLink.dataset.target = key;
+            navContainer.appendChild(navLink);
+            const sectionDiv = document.getElementById(key);
+            if (sectionDiv && section.cases) {
+                let sectionHTML = `<div class="text-center mb-10"><h2 class="text-3xl font-bold text-zinc-900">${section.name}</h2><p class="mt-2 max-w-2xl mx-auto text-zinc-600">${section.description}</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${(section.cases).map(uc => `<a href="#${uc.id}" class="card"><img src="${uc.logo}" alt="${uc.company} Logo" class="h-12 mx-auto mt-5 mb-4 object-contain" onerror="this.style.display='none'"><div class="card-content"><h3 class="font-bold text-lg text-zinc-800">${uc.company}</h3><p class="text-sm text-zinc-500">${uc.concept}</p></div></a>`).join('')}</div>`;
+                sectionDiv.innerHTML = sectionHTML;
+            }
+        });
+        navContainer.addEventListener('click', (e) => {
+            if (e.target.matches('.nav-link')) {
+                history.pushState(null, null, ' ');
+                switchView(e.target.dataset.target);
+            }
+        });
+        const initialHash = window.location.hash;
+        initialHash ? handleUrlChange() : switchView('introduction');
+        window.addEventListener('hashchange', handleUrlChange, false);
+    }
+    
+    initializeDashboard();
+});
