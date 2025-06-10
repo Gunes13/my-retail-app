@@ -1,14 +1,13 @@
 import { useCaseData, presentationContext } from '../data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (typeof useCaseData === 'undefined' || typeof presentationContext === 'undefined') {
-        console.error("Error: data.js not found or required data objects are not defined.");
-        document.body.innerHTML = `Error: data.js not found. Make sure the file is present and contains 'useCaseData' and 'presentationContext' variables.`;
+    if (typeof useCaseData === 'undefined') {
+        console.error("Error: data.js not found or useCaseData is not defined.");
+        document.body.innerHTML = `Error: data.js not found.`;
         return;
     }
 
     const navContainer = document.getElementById('nav-container');
-    const mainContent = document.querySelector('main');
     const modalEl = document.getElementById('modal');
 
     const icons = {
@@ -29,19 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function openModal(sectionKey, caseKey) {
-        const data = useCaseData[sectionKey]?.cases.find(c => c.id === caseKey);
-        if (!data) return;
-        data.isCustom ? renderCustomModal(data) : renderStandardModal(data);
-    }
-    
-    function renderStandardModal(data) {
-        const modalHTML = `...`; // This function remains unchanged
-        modalEl.innerHTML = modalHTML;
-        showAndBindModal();
+        const useCase = useCaseData[sectionKey]?.cases.find(c => c.id === caseKey);
+        if (!useCase) return;
+
+        // All cases are now treated as custom to use the detailed modal
+        renderCustomModal(useCase);
     }
 
     function renderCustomModal(data) {
-         const modalHTML = `
+        // Fallback for potentially missing data to prevent errors
+        const businessModel = data.businessModel || 'Details not available.';
+        const processSteps = data.processSteps || [];
+        const quantifiedImpact = data.quantifiedImpact || [];
+        const strategicTakeaway = data.strategicTakeaway || 'Not available.';
+        const relatedConcepts = data.relatedConcepts || [];
+
+        const modalHTML = `
             <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-4xl transform transition-all">
                 <div class="p-5 border-b border-zinc-200 flex justify-between items-start">
                     <div class="flex-grow">
@@ -60,34 +62,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <h4 class="font-bold text-lg text-zinc-800 mb-2">The AI-Native Business Model</h4>
-                            <p class="text-zinc-600">${data.businessModel}</p>
+                            <p class="text-zinc-600">${businessModel}</p>
                             <h4 class="font-bold text-lg text-zinc-800 mt-6 mb-3">How It Works: The Human + AI Process</h4>
-                            <div class="space-y-4">${(data.processSteps || []).map(step => `<div class="flex items-start"><div class="flex-shrink-0">${icons[step.icon]}</div><div class="ml-4"><h5 class="font-semibold text-zinc-700">${step.title}</h5><p class="text-sm text-zinc-500">${step.description}</p></div></div>`).join('')}</div>
+                            <div class="space-y-4">${processSteps.map(step => `<div class="flex items-start"><div class="flex-shrink-0">${icons[step.icon]}</div><div class="ml-4"><h5 class="font-semibold text-zinc-700">${step.title}</h5><p class="text-sm text-zinc-500">${step.description}</p></div></div>`).join('')}</div>
                         </div>
                         <div class="bg-zinc-50 p-6 rounded-lg border border-zinc-200">
                             <h4 class="font-bold text-lg text-zinc-800 mb-4">Quantified Impact</h4>
-                            <div class="space-y-4">${(data.quantifiedImpact || []).map(item => `
+                            <div class="space-y-4">${quantifiedImpact.map(item => `
                                 <div>
                                     <p class="text-3xl font-bold text-fuchsia-600">${item.metric}</p>
-                                    <p class="text-sm text-zinc-600">
-                                        ${item.description}
-                                        ${item.videoUrl ? `<a href="${item.videoUrl}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 bg-fuchsia-600 text-white font-bold py-1 px-3 rounded-md hover:bg-fuchsia-700 transition-colors shadow hover:shadow-lg">[Watch Video]</a>` : ''}
-                                    </p>
+                                    <p class="text-sm text-zinc-600">${item.description}</p>
                                 </div>`).join('')}
                             </div>
                         </div>
                     </div>
                      <div class="mt-8 pt-6 border-t border-zinc-200">
                          <h4 class="font-bold text-lg text-zinc-800 mb-2">Strategic Takeaway for Penti</h4>
-                         <p class="text-zinc-600 italic">"${data.strategicTakeaway}"</p>
+                         <p class="text-zinc-600 italic">"${strategicTakeaway}"</p>
                      </div>
-                     ${data.relatedConcepts && data.relatedConcepts.length > 0 ? `
+                     ${relatedConcepts.length > 0 ? `
                      <div class="mt-6 pt-4 border-t border-zinc-200">
                          <h4 class="font-bold text-lg text-zinc-800 mb-2">Related Concepts</h4>
                          <div class="flex flex-wrap gap-2">
-                             ${data.relatedConcepts.map(concept => `
-                                 <a href="#${concept.id}" class="concept-link text-sm bg-indigo-100 text-indigo-700 font-medium py-1 px-3 rounded-full hover:bg-indigo-200 transition-colors">${concept.name}</a>
-                             `).join('')}
+                             ${relatedConcepts.map(concept => `<a href="#${concept.id}" class="concept-link text-sm bg-indigo-100 text-indigo-700 font-medium py-1 px-3 rounded-full hover:bg-indigo-200 transition-colors">${concept.name}</a>`).join('')}
                          </div>
                      </div>
                      ` : ''}
@@ -107,13 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeModal() {
         modalEl.classList.add('hidden');
         document.body.style.overflow = 'auto';
-        if(history.pushState) {
-            history.pushState("", document.title, window.location.pathname + window.location.search);
-        } else {
-            window.location.hash = '';
-        }
+        history.pushState("", document.title, window.location.pathname + window.location.search);
     }
-
+    
     function findCaseById(caseId) {
         for (const sectionKey in useCaseData) {
             if (useCaseData[sectionKey]?.cases) {
@@ -123,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return null;
     }
-    
+
     function handleUrlChange() {
         const caseId = window.location.hash.substring(1);
         if (caseId) {
@@ -139,22 +132,66 @@ document.addEventListener('DOMContentLoaded', () => {
                          openModal(found.sectionKey, found.caseKey);
                      }, 300);
                 }
-                return;
             }
         }
-        if (!modalEl.classList.contains('hidden')) closeModal();
+    }
+
+    function initializeDashboard() {
+        const navOrder = Object.keys(useCaseData);
+
+        navOrder.forEach((key) => {
+            const section = useCaseData[key];
+            if (!section) return;
+
+            const navLink = document.createElement('a');
+            navLink.className = `nav-link py-2 px-4 rounded-t-lg font-medium text-sm md:text-base whitespace-nowrap`;
+            navLink.textContent = section.name;
+            navLink.dataset.target = key;
+            navContainer.appendChild(navLink);
+
+            const sectionDiv = document.getElementById(key);
+            if (sectionDiv && section.cases) {
+                let cardHTML = (section.cases).map(uc => {
+                    const logo = uc.logo || 'https://logo.clearbit.com/clearbit.com'; // Fallback logo
+                    return `<a href="#${uc.id}" class="card"><img src="${logo}" alt="${uc.company} Logo" class="h-12 mx-auto mt-5 mb-4 object-contain"><div class="card-content"><h3 class="font-bold text-lg text-zinc-800">${uc.company}</h3><p class="text-sm text-zinc-500">${uc.concept}</p></div></a>`
+                }).join('');
+                let sectionHTML = `<div class="text-center mb-10"><h2 class="text-3xl font-bold text-zinc-900">${section.name}</h2><p class="mt-2 max-w-2xl mx-auto text-zinc-600">${section.description}</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${cardHTML}</div>`;
+                sectionDiv.innerHTML = sectionHTML;
+            }
+        });
+
+        navContainer.addEventListener('click', (e) => {
+            if (e.target.matches('.nav-link')) {
+                history.pushState(null, null, ' ');
+                switchView(e.target.dataset.target);
+            }
+        });
+        
+        const initialHash = window.location.hash.substring(1);
+        if (initialHash && findCaseById(initialHash)) {
+            handleUrlChange();
+        } else {
+            switchView('introduction');
+        }
+        
+        window.addEventListener('hashchange', handleUrlChange, false);
     }
     
     const askButton = document.getElementById('ask-button');
     const questionInput = document.getElementById('ai-question');
     const responseEl = document.getElementById('ai-response');
 
+    if (askButton) {
+        askButton.addEventListener('click', handleAskAI);
+        questionInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') handleAskAI();
+        });
+    }
+
     async function handleAskAI() {
         const question = questionInput.value.trim();
-        if (!question) {
-            alert("Please enter a question.");
-            return;
-        }
+        if (!question) return;
+
         askButton.disabled = true;
         responseEl.textContent = "Thinking...";
         const SECURE_API_ENDPOINT = '/api/ask-ai';
@@ -164,9 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question: question })
             });
-            if (!response.ok) {
-                throw new Error(`Server Error: ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`Server Error: ${response.statusText}`);
             const data = await response.json();
             responseEl.textContent = data.answer;
         } catch (error) {
@@ -175,42 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } finally {
             askButton.disabled = false;
         }
-    }
-
-    function initializeDashboard() {
-        const navOrder = Object.keys(useCaseData);
-        navOrder.forEach((key) => {
-            const section = useCaseData[key];
-            if (!section) return;
-            const navLink = document.createElement('a');
-            navLink.className = `nav-link py-2 px-4 rounded-t-lg font-medium text-sm md:text-base whitespace-nowrap`;
-            navLink.textContent = section.name;
-            navLink.dataset.target = key;
-            navContainer.appendChild(navLink);
-            const sectionDiv = document.getElementById(key);
-            if (sectionDiv && section.cases) {
-                let sectionHTML = `<div class="text-center mb-10"><h2 class="text-3xl font-bold text-zinc-900">${section.name}</h2><p class="mt-2 max-w-2xl mx-auto text-zinc-600">${section.description}</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${(section.cases).map(uc => `<a href="#${uc.id}" class="card"><img src="${uc.logo}" alt="${uc.company} Logo" class="h-12 mx-auto mt-5 mb-4 object-contain" onerror="this.style.display='none'"><div class="card-content"><h3 class="font-bold text-lg text-zinc-800">${uc.company}</h3><p class="text-sm text-zinc-500">${uc.concept}</p></div></a>`).join('')}</div>`;
-                sectionDiv.innerHTML = sectionHTML;
-            }
-        });
-        navContainer.addEventListener('click', (e) => {
-            if (e.target.matches('.nav-link')) {
-                history.pushState(null, null, ' ');
-                switchView(e.target.dataset.target);
-            }
-        });
-        const initialHash = window.location.hash;
-        initialHash ? handleUrlChange() : switchView('introduction');
-        window.addEventListener('hashchange', handleUrlChange, false);
-    }
-    
-    if (document.getElementById('ask-button')) {
-        askButton.addEventListener('click', handleAskAI);
-        questionInput.addEventListener('keyup', (event) => {
-            if (event.key === 'Enter') {
-                handleAskAI();
-            }
-        });
     }
     
     initializeDashboard();

@@ -1,5 +1,6 @@
+import fetch from 'node-fetch';
+
 export async function handler(event, context) {
-    // Dynamically import the data using a relative path
     const { presentationContext, useCaseData } = await import('../../data.js');
 
     if (event.httpMethod !== 'POST') {
@@ -8,7 +9,6 @@ export async function handler(event, context) {
 
     try {
         const { question } = JSON.parse(event.body);
-        
         const API_KEY = process.env.GOOGLE_AI_API_KEY;
 
         if (!API_KEY) {
@@ -60,7 +60,6 @@ export async function handler(event, context) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ answer: aiText })
         };
-
     } catch (error) {
         console.error("Serverless function error:", error);
         return {
