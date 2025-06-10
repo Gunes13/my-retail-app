@@ -81,184 +81,85 @@ export const useCaseData = {
                     { id: 'product-attribution', name: 'AI-Powered Product Attribution' },
                     { id: 'multimodal-ai', name: 'Multimodal AI' }
                 ]
+            },
+            {
+                id: 'stitch-fix',
+                company: 'Stitch Fix',
+                concept: 'AI-Guided Personal Styling',
+                logo: 'https://logo.clearbit.com/stitchfix.com',
+                image: '/images/stitchfix.png',
+                imperativeLink: 'Imperative 2: AI as a Catalyst',
+                isCustom: true,
+                youtubeUrl: null,
+                businessModel: 'Stitch Fix has built its entire operation around AI, creating an "AI-native" business model. It operates on a subscription basis where customers pay a styling fee in return for curated "Fixes." This moves beyond traditional retail by acting as an AI-guided curation service rather than a simple storefront.',
+                processSteps: [
+                    { icon: 'data', title: 'Data Collection', description: 'Gathers rich customer data from style quizzes, direct feedback, purchase history, and stated preferences.' },
+                    { icon: 'ai', title: 'AI Curation', description: 'Sophisticated algorithms analyze the data to curate a hyper-personalized selection of clothing, in essence acting as an early "machine customer" by making selections on the user\'s behalf.' },
+                    { icon: 'human', title: 'Human Stylist Review', description: 'Human stylists collaborate with the AI, refining its data-driven suggestions with personal touch and nuance.' },
+                    { icon: 'feedback', title: 'Customer Feedback Loop', description: 'Feedback on each "Fix" is fed back into the algorithms, continuously improving future recommendations.' }
+                ],
+                quantifiedImpact: [
+                    { metric: '75%', description: 'of clothing selections are driven by AI recommendations.' },
+                    { metric: '40%', description: 'increase in Average Order Value (AOV) from personalization.' },
+                    { metric: '15%', description: 'improvement in customer retention rates.' },
+                    { metric: '$150M', description: 'in annual cost savings attributed to AI efficiencies.' }
+                ],
+                strategicTakeaway: 'This illustrates how AI can be the core of a new retail paradigm, rather than just an add-on, unlocking new ways to serve a customer base beyond traditional models.',
+                relatedConcepts: [{ id: 'data-feedback-loop', name: 'The Data Feedback Loop' }]
             }
         ]
     },
     'intelligent-operations': {
         name: 'Intelligent Operations',
         description: 'AI is revolutionizing backend retail operations, making them more accurate, efficient, and responsive across the entire value chain.',
-        cases: [ ]
+        cases: [
+            { id: 'walmart-replenishment', company: 'Walmart', concept: 'Automated AI Replenishment System', image: '/images/walmart.jpg' }
+        ]
     },
     'customer-engagement': {
         name: 'Customer Engagement',
         description: 'AI is reshaping customer interactions with 24/7 support, instant responses, and a deep understanding of customer sentiment.',
-        cases: [ ]
+        cases: [
+             { id: 'saks-agentforce', company: 'Saks', concept: 'AI for Frontline Enablement', image: '/images/saks.png' }
+        ]
     },
     'generative-agentic-ai': {
         name: 'Generative & Agentic AI',
         description: 'Generative AI creates novel content, while Agentic AI performs autonomous tasks, opening new frontiers in design, marketing, and automation.',
-        cases: [ ]
+        cases: [
+            { id: 'puma-gen-ai-imagery', company: 'Puma', concept: 'AI-Powered Content Localization', image: '/images/puma.png' }
+        ]
     },
     'phygital-experiences': {
         name: 'Phygital & In-Store Tech',
         description: 'Blending physical and digital to create seamless, engaging, and personalized in-store customer experiences that drive sales and loyalty.',
-        cases: [ ]
+        cases: [
+            { id: 'zara-omnichannel-flagship', company: 'Zara (Inditex)', concept: 'The Omnichannel Flagship Experience', image: '/images/zaramadrid.png', youtubeUrl: 'https://www.youtube.com/watch?v=p6DkV4QAhDs&t=6s' }
+        ]
     },
     'sustainable-ethical-ai': {
         name: 'Sustainable & Ethical AI',
         description: 'Using AI to optimize resource use, minimize waste, and enhance supply chain transparency for more sustainable and ethical operations.',
-        cases: [ ]
+        cases: [
+            { id: 'tommy-hilfiger-zero-waste', company: 'Tommy Hilfiger', concept: 'Designing for Zero Waste with 3D Technology', image: '/images/tommy.png' }
+        ]
     },
     'platform-enablers': {
         name: 'Platform Enablers',
         description: 'Major technology platforms are providing the foundational AI infrastructure and retail-specific solutions that power industry-wide transformation.',
         cases: [
-             {
-                id: 'pepesto-b2ai',
-                company: 'Pepesto',
-                concept: 'The B2AI Grocery Shopping API',
-                logo: 'https://logo.clearbit.com/pepesto.com',
-                image: '/images/pepesto.png',
-                imperativeLink: 'Imperative 3: The Emergence of "Machine Customers"',
-                isCustom: true,
-                youtubeUrl: 'https://www.youtube.com/watch?v=kE9ZQT5JQ5M',
-                businessModel: "Pepesto operates as a pure Business-to-AI (B2AI) enabler. Instead of selling to consumers, it provides a specialized API to other AI developers. Its model is to abstract away the complexity of the online grocery ecosystem, offering a single point of integration for any AI agent needing to place real supermarket orders, thereby creating a new B2B service layer for the agentic AI economy.",
-                processSteps: [
-                    {
-                        icon: 'ai',
-                        title: 'AI Agent Request',
-                        description: 'An external AI agent (e.g., a smart meal planner) sends a grocery list or a link to a recipe to the Pepesto API.'
-                    },
-                    {
-                        icon: 'data',
-                        title: 'Pepesto Parses & Maps',
-                        description: "Pepesto's platform parses the request and intelligently maps the required items to available products at a specific, real-world supermarket."
-                    },
-                    {
-                        icon: 'feedback',
-                        title: 'Shopping Cart Generation',
-                        description: 'The system generates a pre-filled, modifiable digital shopping cart at the chosen supermarket and creates a simple checkout link.'
-                    },
-                    {
-                        icon: 'human',
-                        title: 'User Finalizes Purchase',
-                        description: 'Pepesto returns the checkout URL to the AI agent, which presents it to the end-user for final review and payment.'
-                    }
-                ],
-                quantifiedImpact: [
-                    {
-                        metric: 'Unified API',
-                        description: 'Offers a single, unified API, eliminating the need for AI developers to build and maintain integrations with numerous individual supermarket chains.'
-                    },
-                    {
-                        metric: 'B2AI Enabler',
-                        description: 'A prime example of the emerging Business-to-AI model, where the primary customer is another AI system.'
-                    },
-                    {
-                        metric: 'Headless Service',
-                        description: "Provides a 'headless' service where the complex backend logic is completely decoupled from the end-user interface."
-                    },
-                    {
-                        metric: 'Reduced Complexity',
-                        description: 'Dramatically reduces development overhead for AI companies wanting to offer real-world grocery procurement.'
-                    }
-                ],
-                strategicTakeaway: "Pepesto illustrates a fundamental shift towards a B2AI economy. It shows that as AI agents become more autonomous, a new market for specialized, API-driven intermediary services will grow, creating value by bridging the gap between AI intent and real-world execution.",
-                relatedConcepts: [{ id: 'agentic-ai-machine-customer', name: 'Agentic AI & The Machine Customer' }]
-            },
-            {
-                id: "google-cloud",
-                company: "Google Cloud",
-                concept: "AI-Powered Retail Transformation",
-                logo: "https://logo.clearbit.com/google.com",
-                image: "/images/googleretail.png",
-                imperativeLink: "Imperative 1: Market Growth & Adoption",
-                isCustom: true,
-                youtubeUrl: 'https://youtu.be/bIelmjhIAZ0',
-                businessModel: "Google Cloud provides a comprehensive suite of AI solutions designed to transform retail by enhancing customer service, empowering employees, and generating creative content. By offering powerful platforms like Vertex AI and targeted AI agents, Google enables retailers to drive operational efficiency, deliver personalized experiences, and unlock new avenues for innovation and growth.",
-                processSteps: [
-                    {
-                        icon: "feedback",
-                        title: "Personalized Customer Engagement",
-                        description: "Deploys AI agents like Carrefour's 'Hopla' assistant for personalized shopping suggestions and powers dynamic, data-driven marketing campaigns."
-                    },
-                    {
-                        icon: "ai",
-                        title: "Enhanced Operations & Innovation",
-                        description: "Enables deeper data analytics and the use of generative AI for tasks like detecting production flaws, as explored by P&G."
-                    },
-                    {
-                        icon: "human",
-                        title: "Empowered Workforce",
-                        description: "Provides AI-powered tools to streamline tasks for store associates, including workforce management and real-time access to product information."
-                    }
-                ],
-                quantifiedImpact: [
-                    {
-                        metric: "40% & 45% Savings",
-                        description: "Reduction in operating costs (40%) and energy consumption (45%) reported by Carrefour after migrating to Google Cloud Platform."
-                    },
-                    {
-                        metric: "Vertex AI Platform",
-                        description: "A unified platform empowering retailers to build, deploy, and manage custom AI applications using a mix of Google, third-party, and open-source models."
-                    },
-                    {
-                        metric: "AI-Powered Creativity",
-                        description: "Enables creative content generation for dynamic social media campaigns (Carrefour) and innovative product image analysis (P&G)."
-                    }
-                ],
-                "strategicTakeaway": "Google Cloud's approach demonstrates the power of a unified data and AI platform. By enabling retailers like Carrefour to achieve significant operational savings, it creates the foundation to then invest in advanced, customer-facing AI like personalized marketing and conversational shopping assistants, proving a virtuous cycle of efficiency and innovation."
-            },
-            {
-                id: 'aws-retail',
-                company: 'Amazon Web Services',
-                concept: 'Foundational Cloud & AI Services',
-                logo: 'https://logo.clearbit.com/aws',
-                image: '/images/aws.png',
-                imperativeLink: 'Imperative 1: Market Growth & Adoption',
-                isCustom: true,
-                youtubeUrl: null,
-                businessModel: "AWS for Retail acts as a foundational enabler, providing the scalable cloud infrastructure and a comprehensive suite of services that power digital transformation. Leveraging its experience as the backbone of Amazon.com, AWS allows retailers to select from a vast toolkit to build custom solutions for supply chain management, data analytics, and personalized customer experiences.",
-                processSteps: [
-                    {
-                        icon: 'data',
-                        title: 'Data Management & Warehousing',
-                        description: 'Retailers use services like Amazon S3 for data lakes and Amazon Redshift for data warehousing to centralize and analyze vast amounts of data, as exemplified by Zalora.'
-                    },
-                    {
-                        icon: 'ai',
-                        title: 'AI & Machine Learning Services',
-                        description: 'Offers specialized AI services like Amazon Personalize (for recommendations), Amazon Forecast (for demand planning), and Amazon Bedrock (for generative AI) that retailers can integrate into their applications.'
-                    },
-                    {
-                        icon: 'feedback',
-
-                        title: 'Scalable E-commerce & Delivery',
-                        description: 'Utilizes core infrastructure and services like Amazon CloudFront to reliably deliver massive amounts of content and handle traffic surges for e-commerce platforms like Zalora.'
-                    }
-                ],
-                quantifiedImpact: [
-                    {
-                        metric: '>30% Time Saved',
-                        description: 'Reduction in IT management time reported by Zalora after migrating its core platform to AWS.'
-                    },
-                    {
-                        metric: 'Improved Agility',
-                        description: 'Enabled Zalora to handle massive traffic spikes during sales events and accelerate their innovation cycle.'
-                    },
-                    {
-                        metric: 'Global Scale',
-                        description: "Provides the backbone for global retailers like Waitrose and Zalora to scale their online services and improve customer experience."
-                    }
-                ],
-                strategicTakeaway: "AWS's strategy is to provide the fundamental, flexible building blocks for retail innovation. Rather than offering a single, pre-packaged retail application, it empowers companies like Zalora and Waitrose to custom-build their own transformation by integrating dozens of specialized services, demonstrating a path of deep, bespoke technological integration."
-            }
+            { id: 'pepesto-b2ai', company: 'Pepesto', concept: 'The B2AI Grocery Shopping API', image: '/images/pepesto.png' },
+            { id: 'google-cloud', company: 'Google Cloud', concept: 'AI-Powered Retail Transformation', image: '/images/googleretail.png' },
+            { id: 'aws-retail', company: 'Amazon Web Services', concept: 'Foundational Cloud & AI Services', image: '/images/aws.png' }
         ]
     },
     'concept-explainers': {
         name: 'Concept Explainers',
         description: 'Deep dives into the foundational technologies and strategic concepts driving the AI-powered retail revolution.',
-        cases: [ ]
+        cases: [
+            { id: '3dvd-digital-twins', company: 'Key Concept', concept: '3DVD & Digital Twins', image: 'https://images.unsplash.com/photo-1631975398299-80c550ea4df1?w=600' },
+            { id: 'mach-architecture', company: 'Key Concept', concept: 'MACH Architecture', image: 'https://images.unsplash.com/photo-1542626991-a2f572aedfe8?w=600' }
+        ]
     },
     'ask-ai': { name: 'Ask AI', description: 'Ask our AI expert about concepts in retail technology.' }
 };
