@@ -1069,7 +1069,7 @@ export const useCaseData = {
                 company: 'Pepesto',
                 concept: 'The B2AI Grocery Shopping API',
                 logo: 'https://logo.clearbit.com/pepesto.com',
-                image: '/images/pepesco.png',
+                image: '/images/pepesto.png', // Corrected extension
                 imperativeLink: 'Imperative 3: The Emergence of "Machine Customers"',
                 isCustom: true,
                 youtubeUrl: 'https://www.youtube.com/watch?v=kE9ZQT5JQ5M',
@@ -1162,14 +1162,14 @@ export const useCaseData = {
                         description: "The number of organizations globally utilizing the Microsoft Copilot and AI stack, underscoring the maturity and readiness of these technologies for the retail sector."
                     }
                 ],
-                strategicTakeaway: "Microsoft's strategy demonstrates a holistic, platform-based approach to AI in retail. By providing a multi-layered and customizable AI stack—from ready-to-use Copilots to a sophisticated AI Foundry—Azure empowers retailers of all sizes to implement agentic AI, transforming not just a single function but the entire operational and customer-facing ecosystem."
+                strategicTakeaway: "Microsoft's strategy demonstrates a holistic, platform-based approach to AI in retail. By providing a multi-layered and customizable AI stack—from ready-to-use Copilots to a sophisticated AI Foundry—Azure empowers retailers of all sizes to implement agentic AI, a key enabler of industry transformation."
             },
             {
                 id: "google-cloud",
                 company: "Google Cloud",
                 concept: "AI-Powered Retail Transformation",
                 logo: "https://logo.clearbit.com/google.com",
-                image: "googleretail.png",
+                image: "/images/googleretail.png", // Corrected extension
                 imperativeLink: "Imperative 1: Market Growth & Adoption",
                 isCustom: true,
                 youtubeUrl: 'https://youtu.be/bIelmjhIAZ0',
@@ -1212,7 +1212,7 @@ export const useCaseData = {
                 company: 'Amazon Web Services',
                 concept: 'Foundational Cloud & AI Services',
                 logo: 'https://logo.clearbit.com/aws',
-                image: 'aws.png',
+                image: '/images/aws.png',
                 imperativeLink: 'Imperative 1: Market Growth & Adoption',
                 isCustom: true,
                 youtubeUrl: null,
