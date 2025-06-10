@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 export async function handler(event, context) {
     // Dynamically import the data using a relative path
     const { presentationContext, useCaseData } = await import('../../data.js');
