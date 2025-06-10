@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
-const { presentationContext, useCaseData } = require('../../data.js');
-
+const { presentationContext, useCaseData } = await import(`file://${__dirname}/../../data.js`);
 exports.handler = async function (event, context) {
     // Only allow POST requests
     if (event.httpMethod !== 'POST') {
