@@ -1,7 +1,9 @@
 const fetch = require('node-fetch');
-const { presentationContext, useCaseData } = await import(`file://${__dirname}/../../data.js`);
+
 exports.handler = async function (event, context) {
-    // Only allow POST requests
+    // The import has been MOVED to be the first line inside the handler function
+    const { presentationContext, useCaseData } = await import(`file://${__dirname}/../../data.js`);
+
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
     }
@@ -9,7 +11,6 @@ exports.handler = async function (event, context) {
     try {
         const { question } = JSON.parse(event.body);
         
-        // Securely get the API key from an environment variable
         const API_KEY = process.env.GOOGLE_AI_API_KEY;
 
         if (!API_KEY) {
