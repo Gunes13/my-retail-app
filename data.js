@@ -6,18 +6,6 @@ Strategic Imperatives for Penti:
 - Imperative 4: Driving Sustainable & Ethical Practices. AI can optimize resource use, minimize waste, and enhance supply chain transparency. 90% of shoppers believe retailers should disclose AI data use.
 - Imperative 5: Building Agile Foundations for AI Success. A MACH (Microservices, API-first, Cloud-native, Headless) architecture is crucial for flexibility, faster time-to-market, and avoiding vendor lock-in.
 - Imperative 6: Strategic Workforce Transformation. The focus must be on fostering AI literacy, redefining roles for human-AI collaboration, and upskilling the workforce.
-
-Key AI-Driven Transformations:
-- The synergy of three key technologies: Multimodal AI (the ability to understand diverse data like images/video), Generative AI (the ability to create novel content), and Agentic AI (the ability to act and perform complex tasks).
-- Hyper-Personalization at Scale: Moving to true one-to-one engagement. 91% of consumers prefer personalized offers.
-- Intelligent Operations: Improving accuracy and efficiency in backend operations like demand forecasting, inventory management, and empowering knowledge work with assistive search.
-- Revolutionizing Customer Engagement: Using AI for 24/7 support, personalized assistance, and proactive problem-solving via 'Agentic AI'.
-- Enhancing In-Store & Phygital Experiences: Blending digital and physical through smart stores, virtual try-on, clienteling tools, and frictionless checkout.
-- Dynamic Pricing: Using AI for real-time price optimization, which requires ethical guidelines to maintain customer trust.
-
-Challenges & Recommendations:
-- Challenges are layered: Foundational (technical/data debt), Organizational (talent, ROI, culture), and Strategic (prioritization).
-- A recommended 3-Phase Roadmap: 1. Discovery & Strategy (Assess maturity, prioritize use cases). 2. Foundational Build & Pilot Execution (Build infrastructure while proving value with a pilot). 3. Scale & Enterprise Transformation (Roll out successful solutions and drive cultural adoption).
 `;
 
 export const useCaseData = {
@@ -26,122 +14,71 @@ export const useCaseData = {
         name: 'Hyper-Personalization',
         description: 'Moving beyond broad segmentation to one-to-one engagement, AI leverages vast data to deliver individualized journeys, products, and interactions at scale.',
         cases: [
-            {
-                id: 'zalando-genai',
-                company: 'Zalando',
-                concept: 'The Algorithmic Fashion Companion',
-                logo: 'https://logo.clearbit.com/zalando.com',
-                image: '/images/Zalando.png',
-                imperativeLink: 'Transformation 1: Hyper-Personalization at Scale',
-                isCustom: true,
-                youtubeUrl: null,
-                businessModel: "Zalando's strategy is to create a holistic 'Algorithmic Fashion Companion' that uses multiple AI capabilities to assist customers across their entire journey. The model goes beyond simple recommendations to provide curated styling, personalized fit advice, and engaging, trend-driven content, making the shopping experience deeply personal and sticky.",
-                processSteps: [
-                    { icon: 'ai', title: 'AI-Powered Curation & Styling', description: 'An AI fashion assistant provides curated suggestions and entire outfit recommendations based on a customer\'s free-form queries and preferences.' },
-                    { icon: 'feedback', title: 'Personalized Size & Fit Prediction', description: 'The system uses data on purchase history, brand affinities, and, crucially, past returns to predict the best size for a customer, aiming to reduce return rates.' },
-                    { icon: 'human', title: 'Localized & Multilingual Support', description: 'The AI is trained to handle multiple languages and dialects, tracking city-based trends to provide more culturally and geographically relevant style advice.' },
-                    { icon: 'data', title: 'Trend-Responsive Content', description: 'Zalando uses Generative AI to create marketing imagery in days instead of weeks, allowing it to rapidly build campaigns around fast-moving micro-trends.' }
-                ],
-                quantifiedImpact: [
-                    { metric: 'Algorithmic Fashion Companion', description: 'The AI acts as a personal stylist, offering outfit suggestions and complementary accessories, not just single products.' },
-                    { metric: 'Reduced Returns via Sizing', description: 'A core goal of the AI is to leverage customer data to provide better size recommendations, directly tackling a major cost driver in apparel e-commerce.' },
-                    { metric: 'Hyper-Responsive Marketing', description: 'Generative AI reduces content creation time from 6-8 weeks to just 3-4 days, enabling immediate campaigns for emerging trends.' },
-                    { metric: 'Localized Engagement', description: 'By tracking city-level trends and understanding local nuances, the AI can offer far more relevant and engaging recommendations.' }
-                ],
-                strategicTakeaway: "Zalando is building a comprehensive AI 'companion' that combines multiple capabilities (personalization, size prediction, generative content) to create a deeply integrated and sticky customer experience. For Penti, this shows that the future isn't about a single AI feature, but about weaving multiple AI tools together to assist the customer at every single touchpoint, from inspiration and discovery to post-purchase satisfaction.",
-                relatedConcepts: [
-                    { id: 'data-feedback-loop', name: 'The Data Feedback Loop' },
-                    { id: 'multimodal-ai', name: 'Multimodal AI' }
-                ]
-            },
-            {
-                id: 'walmart-semantic-search',
-                company: 'Walmart',
-                concept: 'AI-Powered Semantic Search & Product Attribution',
-                logo: 'https://logo.clearbit.com/walmart.com',
-                image: '/images/walmart.jpg',
-                imperativeLink: 'Transformation 1: Hyper-Personalization at Scale',
-                isCustom: true,
-                youtubeUrl: null,
-                businessModel: "Walmart's strategy is to shift from simple keyword search to a 'use case' or 'semantic' search model. By using generative AI powered by a deep layer of AI-driven product attribute tagging, Walmart makes product discovery more intuitive and human-like. This approach captures customer intent at a higher level, improving conversion and creating a competitive advantage.",
-                processSteps: [
-                    { icon: 'ai', title: 'AI Product Attribution (Backend)', description: 'AI enriches every product with hundreds of "customer-centric" attributes beyond simple legacy tags, such as tagging a TV as "good for sports."' },
-                    { icon: 'human', title: 'Generative AI Search Query', description: 'A customer uses the app to search for a use case in natural language, such as "Help me plan a football watch party."' },
-                    { icon: 'data', title: 'Cross-Category Curation', description: "The generative AI understands the 'intent' behind the query and curates a list of relevant products across multiple categories, like snacks, drinks, and electronics." },
-                    { icon: 'feedback', title: 'Personalized Results', description: "The results are personalized based on the customer's history, creating a unique 'store' for that specific need and solving the problem of customers not finding what they're looking for." }
-                ],
-                quantifiedImpact: [
-                    { metric: 'Use-Case Search', description: 'The system allows searching by occasion or use case, not just product names.' },
-                    { metric: 'Richer Product Data', description: 'Transforms products with a few attributes into products with many, unlocking their relevance in search and recommendations.' },
-                    { metric: 'iOS Launch', description: 'The generative AI-powered search feature was initially launched on the iOS platform.' },
-                    { metric: 'Improved Discovery', description: 'Solves the core problem of customers not being able to find products because they don\'t use the retailer\'s "official" keywords.' }
-                ],
-                strategicTakeaway: "Walmart's move demonstrates that the future of e-commerce search is semantic, not just keyword-based. Winning requires a deep investment in a foundational 'product attribution' data layer that teaches the AI how customers think about products. For Penti, this highlights the critical importance of enriching product data with customer-centric language to power more intelligent and conversational discovery experiences.",
-                relatedConcepts: [
-                    { id: 'product-attribution', name: 'AI-Powered Product Attribution' },
-                    { id: 'multimodal-ai', name: 'Multimodal AI' }
-                ]
-            },
-            {
-                id: 'stitch-fix',
-                company: 'Stitch Fix',
-                concept: 'AI-Guided Personal Styling',
-                logo: 'https://logo.clearbit.com/stitchfix.com',
-                image: '/images/stitchfix.png',
-                imperativeLink: 'Imperative 2: AI as a Catalyst',
-                isCustom: true,
-                youtubeUrl: null,
-                businessModel: 'Stitch Fix has built its entire operation around AI, creating an "AI-native" business model. It operates on a subscription basis where customers pay a styling fee in return for curated "Fixes." This moves beyond traditional retail by acting as an AI-guided curation service rather than a simple storefront.',
-                processSteps: [
-                    { icon: 'data', title: 'Data Collection', description: 'Gathers rich customer data from style quizzes, direct feedback, purchase history, and stated preferences.' },
-                    { icon: 'ai', title: 'AI Curation', description: 'Sophisticated algorithms analyze the data to curate a hyper-personalized selection of clothing, in essence acting as an early "machine customer" by making selections on the user\'s behalf.' },
-                    { icon: 'human', title: 'Human Stylist Review', description: 'Human stylists collaborate with the AI, refining its data-driven suggestions with personal touch and nuance.' },
-                    { icon: 'feedback', title: 'Customer Feedback Loop', description: 'Feedback on each "Fix" is fed back into the algorithms, continuously improving future recommendations.' }
-                ],
-                quantifiedImpact: [
-                    { metric: '75%', description: 'of clothing selections are driven by AI recommendations.' },
-                    { metric: '40%', description: 'increase in Average Order Value (AOV) from personalization.' },
-                    { metric: '15%', description: 'improvement in customer retention rates.' },
-                    { metric: '$150M', description: 'in annual cost savings attributed to AI efficiencies.' }
-                ],
-                strategicTakeaway: 'This illustrates how AI can be the core of a new retail paradigm, rather than just an add-on, unlocking new ways to serve a customer base beyond traditional models.',
-                relatedConcepts: [{ id: 'data-feedback-loop', name: 'The Data Feedback Loop' }]
-            }
+            { id: 'zalando-genai', company: 'Zalando', concept: 'The Algorithmic Fashion Companion', image: '/images/Zalando.png' },
+            { id: 'walmart-semantic-search', company: 'Walmart', concept: 'AI-Powered Semantic Search & Product Attribution', image: '/images/walmart.jpg' },
+            { id: 'stitch-fix', company: 'Stitch Fix', concept: 'AI-Guided Personal Styling', image: '/images/stitchfix.png' },
+            { id: 'the-yes', company: 'The Yes (Acquired by Pinterest)', concept: 'The Algorithmic Personal Store', image: '/images/yes.png' },
+            { id: 'target-realtime-personalization', company: 'Target', concept: 'Real-Time Personalization Engine', image: '/images/targetmicro.png' },
+            { id: 'zara-fast-fashion', company: 'Zara (Inditex)', concept: 'AI-Powered Trend Analysis & Rapid Design', image: '/images/zara.png' },
+            { id: 'starbucks-deep-brew', company: 'Starbucks', concept: 'AI-Powered Personalized Promotions', image: '/images/starbucks.png' },
+            { id: 'bold-metrics-fit-tech', company: 'Bold Metrics & Others', concept: 'AI-Powered "Better Fit" Technology', image: '/images/bold.png' },
+            { id: 'visual-search-discovery', company: 'Pinterest & ASOS', concept: 'AI-Powered Visual Search', image: '/images/pinterest.png' }
         ]
     },
     'intelligent-operations': {
         name: 'Intelligent Operations',
         description: 'AI is revolutionizing backend retail operations, making them more accurate, efficient, and responsive across the entire value chain.',
         cases: [
-            { id: 'walmart-replenishment', company: 'Walmart', concept: 'Automated AI Replenishment System', image: '/images/walmart.jpg' }
+            { id: 'clo-set-workflow', company: 'CLO-SET', concept: 'The Collaborative 3D Workflow Platform', image: '/images/closet.png' },
+            { id: 'walmart-replenishment', company: 'Walmart', concept: 'Automated AI Replenishment System', image: '/images/walmart.png' },
+            { id: 'shein-agile-pricing', company: 'SHEIN', concept: 'Real-Time Agile Pricing & Production', image: '/images/shein.png' },
+            { id: 'hm-markdown-optimization', company: 'H&M', concept: 'AI-Powered Markdown Optimization', image: '/images/hmpricing.png' },
+            { id: 'levis-agentic-ai', company: 'Levi Strauss & Co.', concept: 'Agentic AI for Supply Chain Optimization', image: '/images/levis.png' },
+            { id: 'antonioli-assortment-pricing', company: 'Antonioli', concept: 'AI for Assortment & Pricing Optimization', image: '/images/antonioli.png' },
+            { id: 'mands-composable-ai', company: 'M&S', concept: 'Composable AI with MACH Architecture', image: '/images/ms.png' },
+            { id: 'petco-agile-reinvention', company: 'Petco', concept: 'Agile Reinvention with Microservices', image: '/images/petco.png' }
         ]
     },
     'customer-engagement': {
         name: 'Customer Engagement',
         description: 'AI is reshaping customer interactions with 24/7 support, instant responses, and a deep understanding of customer sentiment.',
         cases: [
-             { id: 'saks-agentforce', company: 'Saks', concept: 'AI for Frontline Enablement', image: '/images/saks.png' }
+            { id: 'saks-agentforce', company: 'Saks', concept: 'AI for Frontline Enablement', image: '/images/saks.png', youtubeUrl: 'https://www.youtube.com/watch?v=XdQxbXAkQHc' },
+            { id: 'dsw-support', company: 'DSW', concept: 'End-to-End AI-Powered Customer Support', image: '/images/dsw.png' },
+            { id: 'pacsun-support-commerce', company: 'PacSun', concept: 'AI-Powered Conversational Commerce', image: '/images/pacsun.png' },
+            { id: 'marriott-sentiment-analysis', company: 'Marriott International', concept: 'AI for Guest Sentiment Analysis', image: '/images/marriott.png' },
+            { id: 'mands-contact-center', company: 'M&S', concept: 'AI-Powered Contact Center Transformation', image: '/images/mscc.png' },
+            { id: 'bestbuy-genai-support', company: 'Best Buy', concept: 'Generative AI for Accelerated Support', image: '/images/bestbuy.png', youtubeUrl: 'https://www.youtube.com/watch?v=uLB665FUg9I' }
         ]
     },
     'generative-agentic-ai': {
         name: 'Generative & Agentic AI',
         description: 'Generative AI creates novel content, while Agentic AI performs autonomous tasks, opening new frontiers in design, marketing, and automation.',
         cases: [
-            { id: 'puma-gen-ai-imagery', company: 'Puma', concept: 'AI-Powered Content Localization', image: '/images/puma.png' }
+            { id: 'puma-gen-ai-imagery', company: 'Puma', concept: 'AI-Powered Content Localization', image: '/images/puma.png', youtubeUrl: 'https://www.youtube.com/watch?v=XJpOkh_jXqY' },
+            { id: 'mercer-ai-design', company: 'Mercer (formerly CALA)', concept: 'AI-Powered Fashion Supply Chain Platform', image: '/images/mercer.png' },
+            { id: 'walmart-agentic-ai', company: 'Walmart', concept: 'Autonomous Personal Shopping Assistant', image: '/images/walmartassist.png' },
+            { id: 'google-genai-shopping', company: 'Google', concept: 'AI-Powered Visual & Conversational Shopping', image: '/images/googleshopping.png' },
+            { id: 'suzano-genai-materials', company: 'Suzano', concept: 'AI-Powered Sustainable Materials Management', image: '/images/Suzano.png' }
         ]
     },
     'phygital-experiences': {
         name: 'Phygital & In-Store Tech',
         description: 'Blending physical and digital to create seamless, engaging, and personalized in-store customer experiences that drive sales and loyalty.',
         cases: [
-            { id: 'zara-omnichannel-flagship', company: 'Zara (Inditex)', concept: 'The Omnichannel Flagship Experience', image: '/images/zaramadrid.png', youtubeUrl: 'https://www.youtube.com/watch?v=p6DkV4QAhDs&t=6s' }
+            { id: 'zara-omnichannel-flagship', company: 'Zara (Inditex)', concept: 'The Omnichannel Flagship Experience', image: '/images/zaramadrid.png', youtubeUrl: 'https://www.youtube.com/watch?v=p6DkV4QAhDs&t=6s' },
+            { id: 'zegna-x-configurator', company: 'Zegna', concept: 'AI-Powered In-Store Co-Creation', image: '/images/zegnax.png' },
+            { id: 'ae-interactive-fitting', company: 'American Eagle', concept: 'Connected Fitting Rooms', image: '/images/aeagle.png' },
+            { id: 'browns-connected-store', company: 'Browns by Farfetch', concept: 'The Connected Retail Experience', image: '/images/browns.png' }
         ]
     },
     'sustainable-ethical-ai': {
         name: 'Sustainable & Ethical AI',
         description: 'Using AI to optimize resource use, minimize waste, and enhance supply chain transparency for more sustainable and ethical operations.',
         cases: [
-            { id: 'tommy-hilfiger-zero-waste', company: 'Tommy Hilfiger', concept: 'Designing for Zero Waste with 3D Technology', image: '/images/tommy.png' }
+            { id: 'tommy-hilfiger-zero-waste', company: 'Tommy Hilfiger', concept: 'Designing for Zero Waste with 3D Technology', image: '/images/tommy.png' },
+            { id: 'trustrace-supply-chain', company: 'TrusTrace', concept: 'AI-Powered Supply Chain Transparency', image: '/images/trustrace.png' },
+            { id: 'hm-digital-twins', company: 'H&M', concept: 'Digital Twins for Sustainable Design & Marketing', image: '/images/hmdigitaltwin.png' }
         ]
     },
     'platform-enablers': {
@@ -149,6 +86,7 @@ export const useCaseData = {
         description: 'Major technology platforms are providing the foundational AI infrastructure and retail-specific solutions that power industry-wide transformation.',
         cases: [
             { id: 'pepesto-b2ai', company: 'Pepesto', concept: 'The B2AI Grocery Shopping API', image: '/images/pepesto.png' },
+            { id: 'msft-azure', company: 'Microsoft Azure', concept: 'Agentic AI Solutions for Retail', image: 'https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?w=600' },
             { id: 'google-cloud', company: 'Google Cloud', concept: 'AI-Powered Retail Transformation', image: '/images/googleretail.png' },
             { id: 'aws-retail', company: 'Amazon Web Services', concept: 'Foundational Cloud & AI Services', image: '/images/aws.png' }
         ]
