@@ -18,11 +18,11 @@
         #modal { transition: opacity 0.3s ease; }
         #modal-content { max-height: 90vh; overflow-y: auto; }
         #ai-response { 
-    white-space: pre-wrap; 
-    word-wrap: break-word; 
-    font-family: 'Inter', sans-serif; 
-    font-size: 1rem; 
-}
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+            font-family: 'Inter', sans-serif; 
+            font-size: 1rem; 
+        }
     </style>
 </head>
 <body class="text-zinc-800">
@@ -59,6 +59,29 @@
                     </div>
                 </div>
              </div>
+        </div>
+        <div id="hyper-personalization" class="content-section"></div>
+        <div id="intelligent-operations" class="content-section"></div>
+        <div id="customer-engagement" class="content-section"></div>
+        <div id="generative-agentic-ai" class="content-section"></div>
+        <div id="phygital-experiences" class="content-section"></div>
+        <div id="sustainable-ethical-ai" class="content-section"></div>
+        <div id="platform-enablers" class="content-section"></div>
+        <div id="concept-explainers" class="content-section"></div>
+        <div id="ask-ai" class="content-section">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-zinc-900">Ask the AI Expert</h2>
+                <p class="mt-2 max-w-3xl mx-auto text-zinc-600">Ask a question about AI in retail. The AI will answer based on the strategic presentation and the detailed use cases contained in this dashboard. It will not use general web knowledge.</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="flex gap-2">
+                    <input type="text" id="ai-question" class="flex-grow p-3 border border-zinc-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., How does Zara use AI to reduce waste?">
+                    <button id="ask-button" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors disabled:bg-indigo-300">Ask</button>
+                </div>
+                <div id="ai-response-container" class="mt-6 p-6 bg-white rounded-lg border border-zinc-200 min-h-[100px]">
+                    <pre id="ai-response">Your answer will appear here...</pre>
+                </div>
+            </div>
         </div>
     </main>
 
