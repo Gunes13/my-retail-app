@@ -1,8 +1,8 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-exports.handler = async function (event, context) {
-    // The import has been MOVED to be the first line inside the handler function
-    const { presentationContext, useCaseData } = await import(`file://${__dirname}/../../data.js`);
+export async function handler(event, context) {
+    // Dynamically import the data using a relative path
+    const { presentationContext, useCaseData } = await import('../../data.js');
 
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
@@ -70,4 +70,4 @@ exports.handler = async function (event, context) {
             body: JSON.stringify({ error: "Sorry, there was an internal server error." })
         };
     }
-};
+}
