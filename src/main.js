@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navContainer.addEventListener('click', (e) => {
             if (e.target.matches('.nav-link')) {
-                history.pushState(null, null, ' ');
+history.pushState(null, null, window.location.pathname + window.location.search);
                 switchView(e.target.dataset.target);
             }
         });
