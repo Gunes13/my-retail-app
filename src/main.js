@@ -36,70 +36,89 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderCustomModal(data) {
-        // Fallback for potentially missing data to prevent errors
-        const businessModel = data.businessModel || 'Details not available.';
-        const processSteps = data.processSteps || [];
-        const quantifiedImpact = data.quantifiedImpact || [];
-// --- Start of new code block to replace line 43 ---
-const urlParams = new URLSearchParams(window.location.search);
-const isStudentMode = urlParams.get('mode') === 'student';
-let strategicTakeaway = data.strategicTakeaway || 'Not available.'; // Use 'let' so we can modify it
+    // --- Data validation and setup ---
+    const businessModel = data.businessModel || 'Details not available.';
+    const processSteps = data.processSteps || [];
+    const quantifiedImpact = data.quantifiedImpact || [];
+    const relatedConcepts = data.relatedConcepts || [];
 
-if (isStudentMode) {
-    strategicTakeaway = strategicTakeaway.replace(/Penti/g, 'a leading retailer');
-}
-// --- End of new code block ---        const relatedConcepts = data.relatedConcepts || [];
+    // --- Student Mode Logic ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const isStudentMode = urlParams.get('mode') === 'student';
+    let strategicTakeaway = data.strategicTakeaway || '';
+    let takeawayHeading = "Strategic Takeaway for Penti";
 
-        const modalHTML = `
-            <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-4xl transform transition-all">
-                <div class="p-5 border-b border-zinc-200 flex justify-between items-start">
-                    <div class="flex-grow">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="text-2xl font-bold text-zinc-900">${data.company}: ${data.concept}</h3>
-                                <p class="text-sm text-fuchsia-600 font-semibold mt-1">${data.imperativeLink || ''}</p>
-                            </div>
-                            ${data.youtubeUrl ? `<a href="${data.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="ml-4 flex-shrink-0 inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-red-700 transition-colors whitespace-nowrap">► Watch Video</a>` : ''}
+    if (isStudentMode) {
+        strategicTakeaway = strategicTakeaway.replace(/Penti/g, 'a leading retailer');
+        takeawayHeading = "Strategic Takeaway for a Retailer";
+    }
+
+    // --- HTML Rendering ---
+    const modalEl = document.getElementById('modal');
+    const modalHTML = `
+        <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-4xl transform transition-all">
+            <div class="p-5 border-b border-zinc-200 flex justify-between items-start">
+                <div class="flex-grow">
+                    <h3 class="text-2xl font-bold text-zinc-900">${data.company}: ${data.concept}</h3>
+                    <p class="text-sm text-fuchsia-600 font-semibold mt-1">${data.imperativeLink || ''}</p>
+                </div>
+                ${data.youtubeUrl ? `<a href="${data.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="ml-4 flex-shrink-0 inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-red-700">► Watch Video</a>` : ''}
+                <button id="close-modal" class="text-zinc-400 hover:text-zinc-800 text-3xl font-light leading-none ml-4">&times;</button>
+            </div>
+            <div class="p-6 md:p-8 max-h-[75vh] overflow-y-auto">
+                ${data.image ? `<img src="${data.image}" alt="${data.company} Use Case" class="w-full h-auto max-h-96 object-contain rounded-lg mb-6 bg-zinc-100">` : ''}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold text-lg text-zinc-800 mb-2">The AI-Native Business Model</h4>
+                        <p class="text-zinc-600 text-sm">${businessModel}</p>
+                        
+                        <h4 class="font-bold text-lg text-zinc-800 mb-2 mt-6">How It Works: The Human + AI Process</h4>
+                        <div class="space-y-4">
+                            ${processSteps.map(step => `
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-fuchsia-100 text-fuchsia-600 flex items-center justify-center mr-4 mt-1">${icons[step.icon]}</div>
+                                    <div>
+                                        <p class="font-semibold text-zinc-800">${step.title}</p>
+                                        <p class="text-zinc-600 text-sm">${step.description}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
-                    <button id="close-modal" class="text-zinc-400 hover:text-zinc-800 text-3xl font-light leading-none ml-4">×</button>
-                </div>
-                <div class="p-6 md:p-8">
-                    <img src="${data.image || ''}" alt="${data.company} Use Case" class="w-full h-auto max-h-96 object-contain rounded-lg mb-6 bg-zinc-200 ${data.image ? '' : 'hidden'}">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h4 class="font-bold text-lg text-zinc-800 mb-2">The AI-Native Business Model</h4>
-                            <p class="text-zinc-600">${businessModel}</p>
-                            <h4 class="font-bold text-lg text-zinc-800 mt-6 mb-3">How It Works: The Human + AI Process</h4>
-                            <div class="space-y-4">${processSteps.map(step => `<div class="flex items-start"><div class="flex-shrink-0">${icons[step.icon]}</div><div class="ml-4"><h5 class="font-semibold text-zinc-700">${step.title}</h5><p class="text-sm text-zinc-500">${step.description}</p></div></div>`).join('')}</div>
-                        </div>
-                        <div class="bg-zinc-50 p-6 rounded-lg border border-zinc-200">
-                            <h4 class="font-bold text-lg text-zinc-800 mb-4">Quantified Impact</h4>
-                            <div class="space-y-4">${quantifiedImpact.map(item => `
+                    <div class="bg-zinc-50 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg text-zinc-800 mb-4">Quantified Impact</h4>
+                        <div class="space-y-5">
+                            ${quantifiedImpact.map(item => `
                                 <div>
                                     <p class="text-3xl font-bold text-fuchsia-600">${item.metric}</p>
-                                    <p class="text-sm text-zinc-600">${item.description}</p>
-                                </div>`).join('')}
-                            </div>
+                                    <p class="text-sm text-zinc-600">${item.description} ${item.videoUrl ? `<a href="${item.videoUrl}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline text-xs font-semibold block mt-1">► Watch Impact Video</a>` : ''}</p>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
-                     <div class="mt-8 pt-6 border-t border-zinc-200">
-                         <h4 class="font-bold text-lg text-zinc-800 mb-2">Strategic Takeaway for the Retailer</h4>
-                         <p class="text-zinc-600 italic">"${strategicTakeaway}"</p>
-                     </div>
-                     ${relatedConcepts.length > 0 ? `
-                     <div class="mt-6 pt-4 border-t border-zinc-200">
-                         <h4 class="font-bold text-lg text-zinc-800 mb-2">Related Concepts</h4>
-                         <div class="flex flex-wrap gap-2">
-                             ${relatedConcepts.map(concept => `<a href="#${concept.id}" class="concept-link text-sm bg-indigo-100 text-indigo-700 font-medium py-1 px-3 rounded-full hover:bg-indigo-200 transition-colors">${concept.name}</a>`).join('')}
-                         </div>
-                     </div>
-                     ` : ''}
                 </div>
-            </div>`;
-        modalEl.innerHTML = modalHTML;
-        showAndBindModal();
-    }
+
+                ${strategicTakeaway ? `
+                    <div class="mt-8 pt-6 border-t border-zinc-200">
+                        <h4 class="font-bold text-lg text-zinc-800 mb-2">${takeawayHeading}</h4>
+                        <p class="text-zinc-600 text-sm italic">${strategicTakeaway}</p>
+                    </div>` : ''}
+
+                ${relatedConcepts.length > 0 ? `
+                    <div class="mt-6 pt-6 border-t border-zinc-200">
+                        <h4 class="font-bold text-lg text-zinc-800 mb-3">Related Concepts</h4>
+                        <div class="flex flex-wrap gap-3">
+                            ${relatedConcepts.map(concept => `<a href="#${concept.id}" class="related-concept-link bg-zinc-100 text-zinc-700 text-sm font-semibold px-3 py-1.5 rounded-full hover:bg-zinc-200">${concept.name}</a>`).join('')}
+                        </div>
+                    </div>` : ''}
+            </div>
+        </div>
+    `;
+
+    modalEl.innerHTML = modalHTML;
+    showAndBindModal();
+}
 
     function showAndBindModal() {
         modalEl.classList.remove('hidden');
