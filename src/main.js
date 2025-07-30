@@ -88,11 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
 
-                ${strategicTakeaway ? `
-                    <div class="mt-8 pt-6 border-t border-zinc-200">
-                        <h4 class="font-bold text-lg text-zinc-800 mb-2">${takeawayHeading}</h4>
-                        <p class="text-zinc-600 text-sm italic">${strategicTakeaway}</p>
-                    </div>` : ''}
+                ${data.strategicTakeaway ? `
+    <div class="mt-8 pt-6 border-t border-zinc-200">
+        <h4 class="font-bold text-lg text-zinc-800 mb-2">
+            ${new URLSearchParams(window.location.search).get('mode') === 'student' ? 'Strategic Takeaway for a Retailer' : 'Strategic Takeaway for Penti'}
+        </h4>
+        <p class="text-zinc-600 text-sm italic">
+            ${new URLSearchParams(window.location.search).get('mode') === 'student' ? data.strategicTakeaway.replace(/Penti/g, 'a leading retailer') : data.strategicTakeaway}
+        </p>
+    </div>
+` : ''}
 
                 ${relatedConcepts.length > 0 ? `
                     <div class="mt-6 pt-6 border-t border-zinc-200">
