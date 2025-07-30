@@ -40,8 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const businessModel = data.businessModel || 'Details not available.';
         const processSteps = data.processSteps || [];
         const quantifiedImpact = data.quantifiedImpact || [];
-        const strategicTakeaway = data.strategicTakeaway || 'Not available.';
-        const relatedConcepts = data.relatedConcepts || [];
+// --- Start of new code block to replace line 43 ---
+const urlParams = new URLSearchParams(window.location.search);
+const isStudentMode = urlParams.get('mode') === 'student';
+let strategicTakeaway = data.strategicTakeaway || 'Not available.'; // Use 'let' so we can modify it
+
+if (isStudentMode) {
+    strategicTakeaway = strategicTakeaway.replace(/Penti/g, 'a leading retailer');
+}
+// --- End of new code block ---        const relatedConcepts = data.relatedConcepts || [];
 
         const modalHTML = `
             <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-4xl transform transition-all">
@@ -77,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                      <div class="mt-8 pt-6 border-t border-zinc-200">
-                         <h4 class="font-bold text-lg text-zinc-800 mb-2">Strategic Takeaway for Penti</h4>
+                         <h4 class="font-bold text-lg text-zinc-800 mb-2">Strategic Takeaway for the Retailer</h4>
                          <p class="text-zinc-600 italic">"${strategicTakeaway}"</p>
                      </div>
                      ${relatedConcepts.length > 0 ? `
