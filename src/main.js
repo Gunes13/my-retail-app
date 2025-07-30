@@ -1,4 +1,4 @@
-import { useCaseData, presentationContext } from '../data-student.js';
+import { useCaseData, presentationContext } from '../data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof useCaseData === 'undefined') {
