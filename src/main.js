@@ -42,18 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const quantifiedImpact = data.quantifiedImpact || [];
     const relatedConcepts = data.relatedConcepts || [];
 
-    // --- Student Mode Logic ---
-    const urlParams = new URLSearchParams(window.location.search);
-    const isStudentMode = urlParams.get('mode') === 'student';
-    let strategicTakeaway = data.strategicTakeaway || '';
-    let takeawayHeading = "Strategic Takeaway for Penti";
-
-    if (isStudentMode) {
-        strategicTakeaway = strategicTakeaway.replace(/Penti/g, 'a leading retailer');
-        takeawayHeading = "Strategic Takeaway for a Retailer";
-    }
-
-    // --- HTML Rendering ---
+        // --- HTML Rendering ---
     const modalEl = document.getElementById('modal');
     const modalHTML = `
         <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-4xl transform transition-all">
